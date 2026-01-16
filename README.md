@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# 🎓 SENG321 - AI Powered Adaptive Learning System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An intelligent education platform designed to personalize the learning experience based on student performance. This project utilizes a specialized recommendation algorithm to analyze student progress and suggest appropriate content or difficulty adjustments.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Key Features
 
-### `npm start`
+### 🔐 1. Authentication & Security (RBAC)
+- **JWT-Based Auth:** Secure login and registration for all users.
+- **Role-Based Access Control:**
+  - **Admin/Teacher:** Can create, update, and delete lessons, topics, and questions.
+  - **Student:** Can access assigned content, solve quizzes, and view personal analytics.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📚 2. Content & Lesson Management (CRUD)
+- Complete management system for educational content.
+- Automatic validation for question creation (True/False & Multiple Choice support).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🤖 3. AI-Driven Recommendation Engine
+- **Adaptive Learning:** The system analyzes the student's quiz history.
+- **Dynamic Suggestions:** Based on success rates, the system suggests:
+  - *"Increase Difficulty"* for high performers.
+  - *"Review Topic X"* for students struggling with specific concepts.
 
-### `npm test`
+### 📊 4. Analytics & Reporting
+- Real-time tracking of solved questions.
+- Detailed performance breakdown per lesson and topic.
+- Visual progress summaries for students.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Technology Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend
+- **Framework:** Python FastAPI (High performance, async support)
+- **Database:** MySQL (Structured data storage)
+- **Security:** JWT (JSON Web Tokens) for stateless authentication
+- **Documentation:** Swagger UI / OpenAPI
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Frontend
+- **Framework:** React.js
+- **Styling:** CSS / TailwindCSS
+- **State Management:** React Hooks
+- **HTTP Client:** Axios (Interceptors used for token handling)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## ⚙️ Installation & Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+To run this project locally, you need to set up both the backend and frontend services.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 1️⃣ Backend Setup
+Navigate to the backend directory:
+```bash
+cd backend
