@@ -47,7 +47,7 @@ class HistoryService:
         stats = self.get_user_stats(db, user_id)
         return stats
 
-def get_user_summary(self, db: Session, user_id: int):
+    def get_user_summary(self, db: Session, user_id: int):
         histories = self.history_repo.get_user_history(db, user_id)
         stats = self.get_user_stats(db, user_id)
         
