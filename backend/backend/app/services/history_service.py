@@ -40,3 +40,13 @@ class HistoryService:
             "accuracy": (correct_answers / total_questions * 100) if total_questions > 0 else 0,
             "total_time_seconds": total_time
         }
+        def get_adaptive_recommendation(self, db: Session, user_id: int):
+        stats = self.get_user_stats(db, user_id)
+        
+        # Basit adaptif mantık: Başarı %70 üzerindeyse zorluğu artır
+        if stats["total_solved"] > 5:
+            if stats["accuracy"] >= 70:
+                return {"recommendation": "Zorluk seviyesini artırabilirsin!", "next_level": "Hard"}
+            else:
+                return {"recommendation": "Biraz daha pratik yapmalısın.", "next_level": "Easy/Medium"}
+        return {"recommendation": "Yeterli veri toplandıktan sonra öneri sunulacaktır."}
