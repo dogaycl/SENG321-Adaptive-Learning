@@ -4,6 +4,10 @@ from sqlalchemy.orm import relationship
 
 import enum
 from app.core.database import Base
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+from app.core.database import Base
 
 # Ders zorluk seviyeleri için Enum
 class DifficultyType(enum.Enum):
