@@ -14,11 +14,15 @@ class Question(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)
-    content = Column(Text, nullable=False)
+    content = Column(Text, nullable=False)  # <-- Bak burada adı 'content'
     correct_answer = Column(String(255), nullable=False)
-    difficulty_level = Column(Integer, default=1)  # 1-5 arası puanlama gibi
+    difficulty_level = Column(Integer, default=1)
+    
+    # --- BU SATIRI EKLE ---
+    options = Column(Text, nullable=True) # Şıkları JSON formatında (yazı olarak) tutacağız
+    # ----------------------
 
-    # İlişkiler
+    # İlişkiler (Buralar aynen kalsın)
     lesson = relationship("Lesson", back_populates="questions")
-    histories = relationship("History", back_populates="question", cascade="all, delete-orphan")
+    histories = relationship("History", back_populates="question")
 

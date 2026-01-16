@@ -32,4 +32,4 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     token_data = auth_service.login(db, user.email, user.password)
     if not token_data:
         raise HTTPException(status_code=401, detail="Geçersiz e-posta veya şifre")
-    return token
+    return token_data
