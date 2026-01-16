@@ -4,6 +4,8 @@ from app.repositories.user_repository import UserRepository
 from app.models.user import User
 from app.core.security import hash_password, verify_password
 from app.core.jwt import create_access_token
+from app.core.security import hash_password, verify_password
+
 
 
 class AuthService:
@@ -14,7 +16,6 @@ class AuthService:
     # REGISTER (password hashed)
     # ======================
     def register(self, db: Session, email: str, password: str, role: str):
-        # kullanıcı var mı?
         existing_user = self.user_repository.get_by_email(db, email)
         if existing_user:
             raise ValueError("User already exists")
@@ -22,17 +23,14 @@ class AuthService:
         hashed_password = hash_password(password)
 
         user = User(
-            email=email,
-            password=hashed_password,
-            role=role
-        )
+        email=email,
+        password=hashed_password,
+        role=role
+    )
+        return self.user_repository.create(db, user)
 
-        db.add(user)
-        db.commit()
-        db.refresh(user)
 
-        return user
-
+    
     # ======================
     # LOGIN
     # ======================

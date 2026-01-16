@@ -1,44 +1,38 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.core.database import SessionLocal
+
+from app.core.database import get_db
 from app.schemas.user import UserCreate, UserLogin
 from app.services.auth_service import AuthService
-from app.schemas.user import TokenResponse
-from app.schemas.user import TokenResponse
-
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 auth_service = AuthService()
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @router.post("/register")
 def register(user: UserCreate, db: Session = Depends(get_db)):
-    return auth_service.register(
-        db,
-        user.username,
-        user.email,
-        user.password,
-        user.role
+    created_user = auth_service.register(
+        db=db,
+        email=user.email,
+        password=user.password,
+        role=user.role
     )
+
+    if not created_user:
+        raise HTTPException(status_code=409, detail="User already exists")
+
+    return {
+        "id": created_user.id,
+        "email": created_user.email,
+        "role": created_user.role
+    }
+
 
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
-    logged_user = auth_service.login(db, user.email, user.password)
-    if not logged_user:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    return logged_user
+    result = auth_service.login(db, user.email, user.password)
 
-@router.post("/login", response_model=TokenResponse)
-def login(user: UserLogin, db: Session = Depends(get_db)):
-    token = auth_service.login(db, user.email, user.password)
-
-    if not token:
+    if not result:
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    return token
+    return result
