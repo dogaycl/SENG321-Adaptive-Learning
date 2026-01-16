@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import auth,recommendation
+from app.api.routes import auth,recommendation, lessons, questions
 from app.core.database import engine, Base
 from app.models import user
 
@@ -25,6 +25,8 @@ Base.metadata.create_all(bind=engine)
 # Router'ları ekle
 app.include_router(auth.router)
 app.include_router(recommendation.router)
+app.include_router(lessons.router)    
+app.include_router(questions.router)
 
 # Test endpoint
 @app.get("/")
