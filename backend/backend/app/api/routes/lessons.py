@@ -23,3 +23,16 @@ def create_new_lesson(lesson: LessonCreate, role: str, db: Session = Depends(get
     # Rol kontrolü yapılıyor
     check_admin_role(role)
     return lesson_service.create_lesson(db, lesson)
+
+@router.put("/{lesson_id}", response_model=LessonResponse)
+def update_lesson(lesson_id: int, lesson: LessonCreate, role: str, db: Session = Depends(get_db)):
+    check_admin_role(role)
+    return lesson_service.update_lesson(db, lesson_id, lesson)
+
+@router.delete("/{lesson_id}")
+def delete_lesson(lesson_id: int, role: str, db: Session = Depends(get_db)):
+    check_admin_role(role)
+    success = lesson_service.remove_lesson(db, lesson_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Ders bulunamadı")
+    return {"message": "Ders başarıyla silindi"}
