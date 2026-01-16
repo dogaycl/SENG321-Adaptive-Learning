@@ -23,3 +23,16 @@ def add_question(question: QuestionCreate, role: str, db: Session = Depends(get_
     # Rol kontrolü: Sadece admin/teacher soru ekleyebilir
     check_admin_role(role)
     return question_service.add_question_to_lesson(db, question)
+
+@router.put("/{question_id}", response_model=QuestionResponse)
+def update_question(question_id: int, question: QuestionCreate, role: str, db: Session = Depends(get_db)):
+    check_admin_role(role)
+    return question_service.update_question(db, question_id, question) # Servis katmanına bu metot eklenmeli
+
+@router.delete("/{question_id}")
+def delete_question(question_id: int, role: str, db: Session = Depends(get_db)):
+    check_admin_role(role)
+    success = question_service.remove_question(db, question_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Soru bulunamadı")
+    return {"message": "Soru başarıyla silindi"}
