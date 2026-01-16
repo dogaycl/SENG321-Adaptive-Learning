@@ -17,3 +17,14 @@ class LessonService:
 
     def get_all_lessons(self, db: Session):
         return self.lesson_repo.get_all(db)
+
+    def update_lesson(self, db: Session, lesson_id: int, lesson_data: LessonCreate):
+        update_map = {
+            "title": lesson_data.title,
+            "description": lesson_data.description,
+            "difficulty": lesson_data.difficulty
+        }
+        return self.lesson_repo.update(db, lesson_id, update_map)
+
+    def remove_lesson(self, db: Session, lesson_id: int):
+        return self.lesson_repo.delete(db, lesson_id)
