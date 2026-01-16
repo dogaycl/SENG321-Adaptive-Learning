@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import auth,recommendation, lessons, questions
+from app.api.routes import auth,recommendation, lessons, questions,history
 from app.core.database import engine, Base
 from app.models import user
 
@@ -27,7 +27,7 @@ app.include_router(auth.router)
 app.include_router(recommendation.router)
 app.include_router(lessons.router)    
 app.include_router(questions.router)
-
+app.include_router(history.router)
 # Test endpoint
 @app.get("/")
 def root():
