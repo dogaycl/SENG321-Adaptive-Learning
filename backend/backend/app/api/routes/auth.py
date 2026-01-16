@@ -27,18 +27,9 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
         user.role
     )
 
-@router.post("/login")
-def login(user: UserLogin, db: Session = Depends(get_db)):
-    logged_user = auth_service.login(db, user.email, user.password)
-    if not logged_user:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    return logged_user
-
 @router.post("/login", response_model=TokenResponse)
 def login(user: UserLogin, db: Session = Depends(get_db)):
-    token = auth_service.login(db, user.email, user.password)
-
-    if not token:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-
+    token_data = auth_service.login(db, user.email, user.password)
+    if not token_data:
+        raise HTTPException(status_code=401, detail="Geçersiz e-posta veya şifre")
     return token
