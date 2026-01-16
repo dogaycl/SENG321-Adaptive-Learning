@@ -3,6 +3,7 @@ from app.models.history import History
 from app.repositories.history_repository import HistoryRepository
 from app.repositories.questions_repository import QuestionRepository
 from app.schemas.history import HistoryCreate
+from collections import defaultdict
 
 class HistoryService:
     def __init__(self):
@@ -45,3 +46,24 @@ class HistoryService:
     def get_user_summary(self, db: Session, user_id: int):
         stats = self.get_user_stats(db, user_id)
         return stats
+
+def get_user_summary(self, db: Session, user_id: int):
+        histories = self.history_repo.get_user_history(db, user_id)
+        stats = self.get_user_stats(db, user_id)
+        
+        # Ders bazlı performans analizi (Gelişmiş veri yolu)
+        lesson_performance = defaultdict(lambda: {"correct": 0, "total": 0})
+        for h in histories:
+            # Soru üzerinden ders bilgisini al (İlişkili tablo sorgusu gerekebilir, şimdilik soru ID bazlı)
+            lesson_id = h.question_id # Basitleştirilmiş mantık
+            lesson_performance[lesson_id]["total"] += 1
+            if h.is_correct:
+                lesson_performance[lesson_id]["correct"] += 1
+
+        return {
+            "general_stats": stats,
+            "lesson_breakdown": {
+                f"lesson_{lid}": (data["correct"] / data["total"] * 100) 
+                for lid, data in lesson_performance.items()
+            }
+        }
