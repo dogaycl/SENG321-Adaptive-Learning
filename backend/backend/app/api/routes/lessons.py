@@ -5,6 +5,7 @@ from app.core.database import get_db
 from app.schemas.lessons import LessonCreate, LessonResponse
 from app.services.lessons_service import LessonService
 from typing import List
+from app.core.security import check_admin_role
 
 router = APIRouter(prefix="/lessons", tags=["Lessons"])
 lesson_service = LessonService()
@@ -16,3 +17,9 @@ def create_new_lesson(lesson: LessonCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=List[LessonResponse])
 def get_all_lessons(db: Session = Depends(get_db)):
     return lesson_service.get_all_lessons(db)
+@router.post("/", response_model=LessonResponse)
+
+def create_new_lesson(lesson: LessonCreate, role: str, db: Session = Depends(get_db)):
+    # Rol kontrolü yapılıyor
+    check_admin_role(role)
+    return lesson_service.create_lesson(db, lesson)
