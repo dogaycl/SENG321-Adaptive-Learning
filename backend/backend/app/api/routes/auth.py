@@ -3,6 +3,9 @@ from sqlalchemy.orm import Session
 from app.core.database import SessionLocal
 from app.schemas.user import UserCreate, UserLogin
 from app.services.auth_service import AuthService
+from app.schemas.user import TokenResponse
+from app.schemas.user import TokenResponse
+
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 auth_service = AuthService()
@@ -30,3 +33,12 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     if not logged_user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     return logged_user
+
+@router.post("/login", response_model=TokenResponse)
+def login(user: UserLogin, db: Session = Depends(get_db)):
+    token = auth_service.login(db, user.email, user.password)
+
+    if not token:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    return token
