@@ -1,5 +1,12 @@
 from pydantic import BaseModel, EmailStr
 
+from pydantic import BaseModel
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
+
+
 class UserCreate(BaseModel):
     username: str
     email: EmailStr
