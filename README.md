@@ -8,9 +8,8 @@ An intelligent education platform designed to personalize the learning experienc
 
 ### 🔐 1. Authentication & Security (RBAC)
 - **JWT-Based Auth:** Secure login and registration for all users.
-- **Role-Based Access Control:**
-  - **Admin/Teacher:** Can create, update, and delete lessons, topics, and questions.
-  - **Student:** Can access assigned content, solve quizzes, and view personal analytics.
+- **Role-Based Access Control:** 
+- **Student:** Can access assigned content, solve quizzes, and view personal analytics.
 
 ### 📚 2. Content & Lesson Management (CRUD)
 - Complete management system for educational content.
@@ -39,7 +38,7 @@ An intelligent education platform designed to personalize the learning experienc
 
 ### Frontend
 - **Framework:** React.js
-- **Styling:** CSS / TailwindCSS
+- **Styling:** CSS / JavaScript Objects
 - **State Management:** React Hooks
 - **HTTP Client:** Axios (Interceptors used for token handling)
 
